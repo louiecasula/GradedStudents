@@ -72,6 +72,12 @@ public class Student implements Comparable<Student>{
 
     @Override
     public int compareTo(Student otherStudent) {
-        return Double.compare(getAverageExamScore(), otherStudent.getAverageExamScore());
+        int scoreComparison = Double.compare(getAverageExamScore(), otherStudent.getAverageExamScore());
+
+        if (scoreComparison == 0){
+            return otherStudent.getLastName().compareTo(getLastName());
+        }
+
+        return scoreComparison;
     }
 }

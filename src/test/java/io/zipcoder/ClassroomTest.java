@@ -21,11 +21,6 @@ public class ClassroomTest {
         Student student3 = new Student("Norman", "Osborne", examScores3);
         Student student4 = new Student("Max", "Dillon", examScores4);
         Student student5 = new Student("Cletus", "Cassidy", examScores5);
-//        classroom.addStudent(new Student("Otto", "Octavius", examScores1));
-//        classroom.addStudent(new Student("Flint", "Marko", examScores2));
-//        classroom.addStudent(new Student("Norman", "Osborne", examScores3));
-//        classroom.addStudent(new Student("Max", "Dillon", examScores4));
-//        classroom.addStudent(new Student("Cletus", "Cassidy", examScores5));
         ArrayList<Student> students = new ArrayList<>();
         students.add(student1);
         students.add(student2);
@@ -110,12 +105,36 @@ public class ClassroomTest {
                 "Exam Scores:\n" +
                 "        Exam 1 -> 60.0\n" +
                 "]";
-        Assert.assertEquals(expected, classroom.getStudents().toString());
+        Assert.assertEquals(expected, classroom.getStudentsByScore().toString());
     }
 
     @Test
     public void testGetGradeBook() {
-        String expected = "";
+        String expected = "Student Name: Flint Marko\n" +
+                "Average Score: 60.0\n" +
+                "Exam Scores:\n" +
+                "        Exam 1 -> 60.0\n" +
+                "Grade: D\n" +
+                "Student Name: Otto Octavius\n" +
+                "Average Score: 80.0\n" +
+                "Exam Scores:\n" +
+                "        Exam 1 -> 80.0\n" +
+                "Grade: B\n" +
+                "Student Name: Max Dillon\n" +
+                "Average Score: 80.0\n" +
+                "Exam Scores:\n" +
+                "        Exam 1 -> 80.0\n" +
+                "Grade: B\n" +
+                "Student Name: Cletus Cassidy\n" +
+                "Average Score: 80.0\n" +
+                "Exam Scores:\n" +
+                "        Exam 1 -> 80.0\n" +
+                "Grade: B\n" +
+                "Student Name: Norman Osborne\n" +
+                "Average Score: 100.0\n" +
+                "Exam Scores:\n" +
+                "        Exam 1 -> 100.0\n" +
+                "Grade: A\n";
         StringBuilder sb = new StringBuilder();
         TreeMap<Student, String> gradeBook = classroom.getGradeBook();
         for (Student key: gradeBook.keySet()){

@@ -36,30 +36,30 @@ public class Classroom {
     }
 
     public void removeStudent(String firstName, String lastName){
+        Student toBeRemoved = null;
         for (Student s: students){
             if (s.getFirstName().equals(firstName) && s.getLastName().equals(lastName)){
-                this.students.remove(s);
+                toBeRemoved = s;
             }
         }
+        students.remove(toBeRemoved);
     }
 
     public ArrayList<Student> getStudentsByScore(){
-//        ArrayList<Student> sorted = new ArrayList<>(students);
-//        Collections.sort(sorted);
-//        return sorted;
-        Collections.sort(students);
+        students.sort(Collections.reverseOrder());
         return students;
     }
 
     public TreeMap<Student, String> getGradeBook(){
         TreeMap<Student, String> gradeBook = new TreeMap<>();
-        Iterator<Student> i = students.iterator();
+        List<Student> studentsCopy = new ArrayList<>(students);
+        Iterator<Student> i = studentsCopy.iterator();
         while(i.hasNext()){
             int lowerThanCurrent = 0;
             Student current = i.next();
             Iterator<Student> j = getStudentsByScore().iterator();
             while(j.hasNext()){
-                if (j.next().getAverageExamScore() < current.getAverageExamScore()){
+                if (j.next().getAverageExamScore() <= current.getAverageExamScore()){
                     lowerThanCurrent++;
                 }
             }
@@ -71,19 +71,19 @@ public class Classroom {
                 percentile = (double) lowerThanCurrent / students.size() * 100;
             }
             if(percentile >= 90){
-                gradeBook.put(current, "A");
+                gradeBook.put(current, "Grade: A");
             }
             else if(percentile >= 71){
-                gradeBook.put(current, "B");
+                gradeBook.put(current, "Grade: B");
             }
             else if(percentile >= 50){
-                gradeBook.put(current, "C");
+                gradeBook.put(current, "Grade: C");
             }
             else if(percentile >= 11){
-                gradeBook.put(current, "D");
+                gradeBook.put(current, "Grade: D");
             }
             else{
-                gradeBook.put(current, "F");
+                gradeBook.put(current, "Grade: F");
             }
         }
         return gradeBook;
