@@ -1,8 +1,6 @@
 package io.zipcoder;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Classroom {
     ArrayList<Student> students;
@@ -46,10 +44,48 @@ public class Classroom {
     }
 
     public ArrayList<Student> getStudentsByScore(){
-        return new ArrayList<Student>();
+//        ArrayList<Student> sorted = new ArrayList<>(students);
+//        Collections.sort(sorted);
+//        return sorted;
+        Collections.sort(students);
+        return students;
     }
 
     public TreeMap<Student, String> getGradeBook(){
-        return new TreeMap<>();
+        TreeMap<Student, String> gradeBook = new TreeMap<>();
+        Iterator<Student> i = students.iterator();
+        while(i.hasNext()){
+            int lowerThanCurrent = 0;
+            Student current = i.next();
+            Iterator<Student> j = getStudentsByScore().iterator();
+            while(j.hasNext()){
+                if (j.next().getAverageExamScore() < current.getAverageExamScore()){
+                    lowerThanCurrent++;
+                }
+            }
+            double percentile = 0.0;
+            if (lowerThanCurrent == 0){
+                percentile = 1.0;
+            }
+            else{
+                percentile = (double) lowerThanCurrent / students.size() * 100;
+            }
+            if(percentile >= 90){
+                gradeBook.put(current, "A");
+            }
+            else if(percentile >= 71){
+                gradeBook.put(current, "B");
+            }
+            else if(percentile >= 50){
+                gradeBook.put(current, "C");
+            }
+            else if(percentile >= 11){
+                gradeBook.put(current, "D");
+            }
+            else{
+                gradeBook.put(current, "F");
+            }
+        }
+        return gradeBook;
     }
 }
